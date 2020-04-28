@@ -58,7 +58,6 @@ const LogInContainer = styled.div`
             font-size: 0.75rem;
             font-weight: normal;
             color: #fff9fb;
-            text-transform: uppercase;
             cursor: pointer;
         }
 
@@ -98,10 +97,10 @@ const LogIn = props => {
             <h1>LOG IN</h1>
             <form autoComplete='off' spellCheck='false' onSubmit={onSubmit}>
                 <label htmlFor='username'>USERNAME</label>
-                <input name='username' type='text' placeholder='ENTER A USERNAME' value={input.username} onChange={onChange} />
+                <input name='username' type='text' placeholder='ENTER YOUR USERNAME' value={input.username} onChange={onChange} />
                 
                 <label htmlFor='password'>PASSWORD</label>
-                <input name='password' type='password' placeholder='ENTER A PASSWORD' value={input.password} onChange={onChange} />
+                <input name='password' type='password' placeholder='ENTER YOUR PASSWORD' value={input.password} onChange={onChange} />
 
                 <p className='error'>{error}</p>
             

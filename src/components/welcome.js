@@ -15,8 +15,6 @@ const WelcomeContainer = styled.div`
         font-size: 2.5rem;
         font-weight: bold;
         color: #fff9fb;
-        display: flex;
-        align-items: center;
 
         b {
             margin-left: 32px;

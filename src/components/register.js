@@ -58,7 +58,6 @@ const RegisterContainer = styled.div`
             font-size: 0.75rem;
             font-weight: normal;
             color: #fff9fb;
-            text-transform: uppercase;
             cursor: pointer;
         }
 
@@ -82,6 +81,7 @@ const Register = props => {
             ...input,
             [event.target.name]: event.target.value
         });
+        // input isn't actually uppercase, only appears that way
     };
 
     const onSubmit = event => {
