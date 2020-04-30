@@ -71,6 +71,7 @@ const LogInContainer = styled.div`
             font-size: 0.625rem;
             color: #fff9fb;
             cursor: pointer;
+            transition: 0.25s;
 
             :hover {
                 opacity: 0.75;
