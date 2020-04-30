@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 
 const RegisterContainer = styled.div`
@@ -46,6 +47,7 @@ const RegisterContainer = styled.div`
         .error {
             font-size: 0.625rem;
             color: #bb0a21;
+            line-height: 1rem;
         }
 
         button {
@@ -88,8 +90,13 @@ const Register = props => {
         event.preventDefault();
         if (input.username === '' || input.password === '') {
             setError('FIELDS CANNOT BE LEFT BLANK');
+        } else if (input.username.length < 5 || input.password.length < 5) {
+            setError('USERNAME AND PASSWORD MUST BE 5 CHARACTERS OR GREATER');
         } else {
             // axios call here, if error, set error to username taken
+            axios.post('https://loothunters3.herokuapp.com/api/registration', input)
+                .then(response => console.log(response))
+                .catch(error => console.log(error));
         };
     };
 
@@ -105,7 +112,7 @@ const Register = props => {
 
                 <p className='error'>{error}</p>
             
-                <button type='submit' onClick={() => props.history.push('/tutorial')}>SUBMIT</button>
+                <button type='submit'>SUBMIT</button>
 
                 <p className='log-in' onClick={() => props.history.push('/login')}>ALREADY HAVE AN ACCOUNT? LOG IN HERE.</p>
             </form>
