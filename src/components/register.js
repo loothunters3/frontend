@@ -61,6 +61,7 @@ const RegisterContainer = styled.div`
             font-weight: normal;
             color: #fff9fb;
             cursor: pointer;
+            transition: 0.25s;
 
             :hover {
                 opacity: 0.75;
@@ -98,23 +99,25 @@ const Register = props => {
         event.preventDefault();
         if (input.username === '' || input.password === '') {
             setError('FIELDS CANNOT BE LEFT BLANK');
-        } else if (input.username.length < 5 || input.password.length < 5) {
-            setError('USERNAME AND PASSWORD MUST BE 5 CHARACTERS OR GREATER');
+        } else if (input.username.length < 5) {
+            setError('USERNAME MUST BE 5 CHARACTERS OR GREATER');
+        } else if (input.password.length < 8) {
+            setError('PASSWORD MUST BE 8 CHARACTERS OR GREATER');
         } else {
             // axios call here, if error, set error to username taken
             axios.post('https://loothunters3.herokuapp.com/api/registration/', {
                 username: input.username,
-                email: input.username,
+                email: `${input.username}@${input.username}.com`,
                 password1: input.password,
                 password2: input.password
             })
                 .then(response => {
                     console.log(response);
-                    // localStorage.setItem('token', response.data.token);
-                    // props.history.push('/select');
+                    localStorage.setItem('token', response.data.key);
+                    props.history.push('/select');
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log(error.response);
                     setError('USERNAME TAKEN');
                 });
         };

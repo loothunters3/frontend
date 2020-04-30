@@ -37,7 +37,7 @@ const LogInContainer = styled.div`
             font-size: 0.75rem;
             font-weight: normal;
             color: #252627;
-            text-transform: uppercase;
+            // text-transform: uppercase;
 
             ::placeholder {
                 color: #d3d4d9;
@@ -60,6 +60,7 @@ const LogInContainer = styled.div`
             font-weight: normal;
             color: #fff9fb;
             cursor: pointer;
+            transition: 0.25s;
 
             :hover {
                 opacity: 0.75;
@@ -98,11 +99,15 @@ const LogIn = props => {
             setError('FIELDS CANNOT BE LEFT BLANK');
         } else {
             // axios call here, if error, set error to invalid credentials
-            axios.post('https://loothunters3.herokuapp.com/api/login/', input)
+            axios.post('https://loothunters3.herokuapp.com/api/login/', {
+                username: input.username,
+                email: `${input.username}@${input.username}.com`,
+                password: input.password,
+            })
                 .then(response => {
                     console.log(response);
-                    // localStorage.setItem('token', response.data.token);
-                    // props.history.push('/select');
+                    localStorage.setItem('token', response.data.key);
+                    props.history.push('/select');
                 })
                 .catch(error => {
                     console.log(error);

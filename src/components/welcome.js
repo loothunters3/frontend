@@ -40,6 +40,7 @@ const WelcomeContainer = styled.div`
         font-weight: normal;
         color: #fff9fb;
         cursor: pointer;
+        transition: 0.25s;
     
         :hover {
             opacity: 0.75;
