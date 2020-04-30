@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useEventListener from '@use-it/event-listener';
 import styled from 'styled-components';
-import sprite from '../img/sprite.png';
 import zelda from '../img/zelda.png';
 
 const CharacterContainer = styled.div`
@@ -14,7 +13,7 @@ const CharacterContainer = styled.div`
     left: ${props => `${props.position.left}px`};
 `;
 
-const Character = () => {
+const Character = props => {
     const [position, setPosition] = useState({
         top: 0,
         left: 0
@@ -25,26 +24,31 @@ const Character = () => {
     });
     const [step, setStep] = useState(0);
 
+    const setPositionOnSteroids = () => {
+
+    };
+
     useEventListener('keydown', event => {
         switch (event.code) {
             case 'KeyS':
             case 'ArrowDown':
-                setMovement(prevState => ({
-                    current: 0,
-                    previous: prevState.current
-                }));
+                setMovement({ current: 0, previous: movement.current });
                 setPosition({
                     ...position,
                     top: position.top >= 480 ? position.top : position.top + 32
                 });
+                if (props.currentRoom[(position.top / 32) + 1][position.left / 32] === 11) {
+                    setPosition({
+                        ...position,
+                        top: 0
+                    });
+                    props.setCurrentRoom(props.room2);
+                };
                 break;
                 
             case 'KeyA':
             case 'ArrowLeft':
-                setMovement(prevState => ({
-                    current: 32,
-                    previous: prevState.current
-                }));
+                setMovement({ current: 32, previous: movement.current });
                 setPosition({
                     ...position,
                     left: position.left <= 0 ? position.left : position.left - 32
@@ -53,10 +57,7 @@ const Character = () => {
 
             case 'KeyD':
             case 'ArrowRight':
-                setMovement(prevState => ({
-                    current: 64,
-                    previous: prevState.current
-                }));
+                setMovement({ current: 64, previous: movement.current });
                 setPosition({
                     ...position,
                     left: position.left >= 736 ? position.left : position.left + 32
@@ -65,14 +66,17 @@ const Character = () => {
 
             case 'KeyW':
             case 'ArrowUp':
-                setMovement(prevState => ({
-                    current: 96,
-                    previous: prevState.current
-                }));
-                setPosition({
-                    ...position,
-                    top: position.top <= 0 ? position.top : position.top - 32
-                });
+                setMovement({ current: 96, previous: movement.current });
+                // setPosition({
+                //     ...position,
+                //     top: position.top <= 0 ? position.top : position.top - 32
+                // });
+                if (props.currentRoom[(position.top / 32) - 1][position.left / 32] === 0) {
+                    setPosition({
+                        ...position,
+                        top: position.top <= 0 ? position.top : position.top - 32
+                    });
+                };
                 break;
             
             default:
@@ -89,9 +93,7 @@ const Character = () => {
     }, [movement]);
 
     return (
-        <CharacterContainer position={position} movement={movement} step={step}>
-            {/* <img src={character} /> */}
-        </CharacterContainer>
+        <CharacterContainer position={position} movement={movement} step={step}></CharacterContainer>
     );
 };
 
