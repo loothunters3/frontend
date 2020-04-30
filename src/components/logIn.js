@@ -102,7 +102,7 @@ const LogIn = props => {
                 .then(response => {
                     console.log(response);
                     // localStorage.setItem('token', response.data.token);
-                    // props.history.push('/tutorial');
+                    // props.history.push('/select');
                 })
                 .catch(error => {
                     console.log(error);
@@ -123,7 +123,7 @@ const LogIn = props => {
 
                 <p className='error'>{error}</p>
             
-                <button type='submit' onClick={() => props.history.push('/tutorial')}>SUBMIT</button>
+                <button type='submit'>SUBMIT</button>
 
                 <p className='register' onClick={() => props.history.push('/register')}>DON'T HAVE AN ACCOUNT? REGISTER HERE.</p>
             </form>

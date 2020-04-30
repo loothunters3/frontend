@@ -111,7 +111,7 @@ const Register = props => {
                 .then(response => {
                     console.log(response);
                     // localStorage.setItem('token', response.data.token);
-                    // props.history.push('/tutorial');
+                    // props.history.push('/select');
                 })
                 .catch(error => {
                     console.log(error);
