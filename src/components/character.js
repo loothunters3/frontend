@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import useEventListener from '@use-it/event-listener';
 import styled from 'styled-components';
 import sprite from '../img/sprite.png';
-import character from '../img/character.png';
+import zelda from '../img/zelda.png';
 
 const CharacterContainer = styled.div`
     height: 32px;
     width: 32px;
-    background: url(${sprite});
+    background: url(${zelda});
     background-position: ${props => `-${props.step * 32}px -${props.movement.current}px`};
-    // background-position: -32px -32px;
     position: absolute;
     top: ${props => `${props.position.top}px`};
     left: ${props => `${props.position.left}px`};
