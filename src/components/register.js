@@ -37,7 +37,7 @@ const RegisterContainer = styled.div`
             font-size: 0.75rem;
             font-weight: normal;
             color: #252627;
-            text-transform: uppercase;
+            // text-transform: uppercase;
 
             ::placeholder {
                 color: #d3d4d9;
@@ -61,12 +61,20 @@ const RegisterContainer = styled.div`
             font-weight: normal;
             color: #fff9fb;
             cursor: pointer;
+
+            :hover {
+                opacity: 0.75;
+            }
         }
 
         .log-in {
             font-size: 0.625rem;
             color: #fff9fb;
             cursor: pointer;
+
+            :hover {
+                opacity: 0.75;
+            }
         }
     }
 `;
@@ -94,9 +102,21 @@ const Register = props => {
             setError('USERNAME AND PASSWORD MUST BE 5 CHARACTERS OR GREATER');
         } else {
             // axios call here, if error, set error to username taken
-            axios.post('https://loothunters3.herokuapp.com/api/registration', input)
-                .then(response => console.log(response))
-                .catch(error => console.log(error));
+            axios.post('https://loothunters3.herokuapp.com/api/registration/', {
+                username: input.username,
+                email: input.username,
+                password1: input.password,
+                password2: input.password
+            })
+                .then(response => {
+                    console.log(response);
+                    // localStorage.setItem('token', response.data.token);
+                    // props.history.push('/tutorial');
+                })
+                .catch(error => {
+                    console.log(error);
+                    setError('USERNAME TAKEN');
+                });
         };
     };
 

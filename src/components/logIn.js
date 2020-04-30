@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const LogInContainer = styled.div`
     height: 90vh;
@@ -59,12 +60,20 @@ const LogInContainer = styled.div`
             font-weight: normal;
             color: #fff9fb;
             cursor: pointer;
+
+            :hover {
+                opacity: 0.75;
+            }
         }
 
-        .log-in {
+        .register {
             font-size: 0.625rem;
             color: #fff9fb;
             cursor: pointer;
+
+            :hover {
+                opacity: 0.75;
+            }
         }
     }
 `;
@@ -89,6 +98,16 @@ const LogIn = props => {
             setError('FIELDS CANNOT BE LEFT BLANK');
         } else {
             // axios call here, if error, set error to invalid credentials
+            axios.post('https://loothunters3.herokuapp.com/api/login/', input)
+                .then(response => {
+                    console.log(response);
+                    // localStorage.setItem('token', response.data.token);
+                    // props.history.push('/tutorial');
+                })
+                .catch(error => {
+                    console.log(error);
+                    setError('INVALID CREDENTIALS');
+                });        
         };
     };
 
@@ -106,7 +125,7 @@ const LogIn = props => {
             
                 <button type='submit' onClick={() => props.history.push('/tutorial')}>SUBMIT</button>
 
-                <p className='log-in' onClick={() => props.history.push('/register')}>DON'T HAVE AN ACCOUNT? REGISTER HERE.</p>
+                <p className='register' onClick={() => props.history.push('/register')}>DON'T HAVE AN ACCOUNT? REGISTER HERE.</p>
             </form>
         </LogInContainer>
     );
