@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import wasd from '../img/wasd.png';
+import arrows from '../img/arrows.png';
 import m from '../img/m.png';
 
 const TutorialContainer = styled.div`
@@ -26,6 +27,12 @@ const TutorialContainer = styled.div`
             img {
                 height: 64px;
                 margin-bottom: 16px;
+            }
+
+            .wasd-and-arrows {
+                img:first-child {
+                    margin-right: 16px;
+                }   
             }
 
             .description {
@@ -65,7 +72,10 @@ const Tutorial = props => {
             <h1>HOW TO PLAY</h1>
             <div className='controls'>
                 <div className='control'>
-                    <img src={wasd} alt='wasd' />
+                    <div className='wasd-and-arrows'>
+                        <img src={wasd} alt='wasd' />
+                        <img src={arrows} alt='arrows' />
+                    </div>
                     <p className='description'>MOVE CHARACTER</p>
                 </div>
                 <div className='control'>
