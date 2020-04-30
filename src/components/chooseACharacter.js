@@ -44,7 +44,7 @@ const ChooseACharacterContainer = styled.div`
             }
 
             :hover {
-                background-color: white;
+                background-color: #fff9fb;
 
                 .name {
                     color: #252627;
