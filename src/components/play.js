@@ -137,13 +137,10 @@ const Play = props => {
     ];
 
     const [currentRoom, setCurrentRoom] = useState(room1);
-    const [chat, setChat] = useState([
-        'CONNECTING...',
-        'YOU\'VE ENTERED THE DESERT.',
-        'DRY, MOIST, WHATEVER'
-    ]);
-
-    // useEffect(() => setCurrentRoom(room1), []);
+    const [chat, setChat] = useState(['CONNECTING...']);
+    
+    useEffect(() => {
+    }, []);
 
     return (
         <>
@@ -154,7 +151,7 @@ const Play = props => {
                     <div className='chat'>
                         <h2>CHAT</h2>
                         <div className='messages'>
-                            {chat.map((message, index) => <p className='message'>{message}</p>)}
+                            {chat.map((message, index) => <p key={index} className='message'>{message}</p>)}
                         </div>
                     </div>
                 
