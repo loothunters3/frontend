@@ -139,9 +139,6 @@ const Play = props => {
     const [currentRoom, setCurrentRoom] = useState(room1);
     const [chat, setChat] = useState(['CONNECTING...']);
     
-    useEffect(() => {
-    }, []);
-
     return (
         <>
             <Header history={props.history} />
@@ -189,16 +186,6 @@ const Play = props => {
                                 {tile === 15 && <div key={index} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}>
                                     <img src={desertObject3} alt='desertObject3' />
                                 </div>}
-                                
-                                {/* <div key={index} className='tile' style={{ background: `url(${})`, backgroundSize: 'contain' }}>
-                                    {tile === 9 && <img src={door1} />}
-                                    {tile === 10 && <img src={door2} />}
-                                    {tile === 11 && <img src={door3} />}
-                                    {tile === 12 && <img src={door4} />}
-                                    {tile === 13 && <img src={desertObject1} />}
-                                    {tile === 14 && <img src={desertObject2} />}
-                                    {tile === 15 && <img src={desertObject3} />}
-                                </div> */}
                             </>
                         )))}
                     </div>

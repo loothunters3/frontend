@@ -24,59 +24,98 @@ const Character = props => {
     });
     const [step, setStep] = useState(0);
 
-    const setPositionOnSteroids = () => {
-
-    };
-
     useEventListener('keydown', event => {
+        const currentStep = props.currentRoom[position.top / 32][position.left / 32];
+
         switch (event.code) {
             case 'KeyS':
             case 'ArrowDown':
+                // account for top left corner bug
+                // object blockage
+                // door to switch room
+
+                // we want to be able to step everywhere BUT the objects
+                // bottom row is an issue, consists of 5, 6, 7, 11
+
+                const nextStepDown = props.currentRoom[(position.top / 32) + 1] && props.currentRoom[(position.top / 32) + 1][position.left / 32];
+
                 setMovement({ current: 0, previous: movement.current });
-                setPosition({
-                    ...position,
-                    top: position.top >= 480 ? position.top : position.top + 32
-                });
-                if (props.currentRoom[(position.top / 32) + 1][position.left / 32] === 11) {
+
+                // check if backend added anymore tile values
+
+                if (currentStep === 11 && nextStepDown === undefined) {
+                    console.log('Go to the room down');
+                } else if (nextStepDown < 13 && nextStepDown !== undefined) {
                     setPosition({
                         ...position,
-                        top: 0
+                        top: position.top >= 480 ? position.top : position.top + 32
                     });
-                    props.setCurrentRoom(props.room2);
                 };
+                
+                // change rooms
+
+                // if (props.currentRoom[(position.top / 32) + 1][position.left / 32] === 11) {
+                //     setPosition({
+                //         ...position,
+                //         top: 0
+                //     });
+                //     props.setCurrentRoom(props.room2);
+                // };
+
                 break;
                 
             case 'KeyA':
             case 'ArrowLeft':
+                const nextStepToTheLeft = props.currentRoom[position.top / 32][(position.left / 32) - 1];
+            
                 setMovement({ current: 32, previous: movement.current });
-                setPosition({
-                    ...position,
-                    left: position.left <= 0 ? position.left : position.left - 32
-                });
+                if (currentStep === 12 && nextStepToTheLeft === undefined) {
+                    console.log('Go to the room to the left');
+                } else if (nextStepToTheLeft < 13 && nextStepToTheLeft !== undefined) {
+                    setPosition({
+                        ...position,
+                        left: position.left <= 0 ? position.left : position.left - 32
+                    });
+                };
                 break;
 
             case 'KeyD':
             case 'ArrowRight':
+                const nextStepToTheRight = props.currentRoom[position.top / 32][(position.left / 32) + 1];
+
                 setMovement({ current: 64, previous: movement.current });
-                setPosition({
-                    ...position,
-                    left: position.left >= 736 ? position.left : position.left + 32
-                });
+                if (currentStep === 10 && nextStepToTheRight === undefined) {
+                    console.log('Go to the room to the right');
+                } else if (nextStepToTheRight < 13 && nextStepToTheRight !== undefined) {
+                    setPosition({
+                        ...position,
+                        left: position.left >= 736 ? position.left : position.left + 32
+                    });
+                };
                 break;
 
             case 'KeyW':
             case 'ArrowUp':
+                const nextStepUp = props.currentRoom[(position.top / 32) - 1] && props.currentRoom[(position.top / 32) - 1][position.left / 32];
+
                 setMovement({ current: 96, previous: movement.current });
-                // setPosition({
-                //     ...position,
-                //     top: position.top <= 0 ? position.top : position.top - 32
-                // });
-                if (props.currentRoom[(position.top / 32) - 1][position.left / 32] === 0) {
+                if (currentStep === 9 && nextStepUp === undefined) {
+                    console.log('Go to the room up');
+                } else if (nextStepUp < 13 && nextStepUp !== undefined) {
                     setPosition({
                         ...position,
                         top: position.top <= 0 ? position.top : position.top - 32
                     });
                 };
+
+                // change rooms
+
+                // if (props.currentRoom[(position.top / 32) - 1][position.left / 32] === 0) {
+                //     setPosition({
+                //         ...position,
+                //         top: position.top <= 0 ? position.top : position.top - 32
+                //     });
+                // };
                 break;
             
             default:
