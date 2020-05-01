@@ -60,8 +60,8 @@ const Character = props => {
                             });
                             props.setChat([
                                 ...props.chat,
-                                response.data.title,
-                                response.data.description
+                                response.data.title.toUpperCase(),
+                                response.data.description.toUpperCase()
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
                         })
@@ -89,8 +89,8 @@ const Character = props => {
                             });
                             props.setChat([
                                 ...props.chat,
-                                response.data.title,
-                                response.data.description
+                                response.data.title.toUpperCase(),
+                                response.data.description.toUpperCase()
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
                         })
@@ -118,8 +118,8 @@ const Character = props => {
                             });
                             props.setChat([
                                 ...props.chat,
-                                response.data.title,
-                                response.data.description
+                                response.data.title.toUpperCase(),
+                                response.data.description.toUpperCase()
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
                         })
@@ -147,8 +147,8 @@ const Character = props => {
                             });
                             props.setChat([
                                 ...props.chat,
-                                response.data.title,
-                                response.data.description
+                                response.data.title.toUpperCase(),
+                                response.data.description.toUpperCase()
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
                         })
