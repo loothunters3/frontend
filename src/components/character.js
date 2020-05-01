@@ -64,6 +64,7 @@ const Character = props => {
                                 response.data.description.toUpperCase()
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
+                            props.setTerrain(response.data.terrain);
                         })
                         .catch(error => console.log(error));
                 } else if (nextStepDown < 13 && nextStepDown !== undefined) {
@@ -93,6 +94,7 @@ const Character = props => {
                                 response.data.description.toUpperCase()
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
+                            props.setTerrain(response.data.terrain);
                         })
                         .catch(error => console.log(error));
                 } else if (nextStepToTheLeft < 13 && nextStepToTheLeft !== undefined) {
@@ -122,6 +124,7 @@ const Character = props => {
                                 response.data.description.toUpperCase()
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
+                            props.setTerrain(response.data.terrain);
                         })
                         .catch(error => console.log(error));
                 } else if (nextStepToTheRight < 13 && nextStepToTheRight !== undefined) {
@@ -151,6 +154,7 @@ const Character = props => {
                                 response.data.description.toUpperCase()
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
+                            props.setTerrain(response.data.terrain);
                         })
                         .catch(error => console.log(error));
                 } else if (nextStepUp < 13 && nextStepUp !== undefined) {
