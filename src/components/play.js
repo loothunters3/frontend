@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useEventListener from '@use-it/event-listener';
 import { v4 as uuidv4 } from 'uuid';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 import Header from './header';
 import Character from './character';
 import styled from 'styled-components';
@@ -20,6 +21,7 @@ import door1 from '../img/door1.png';
 import door2 from '../img/door2.png';
 import door3 from '../img/door3.png';
 import door4 from '../img/door4.png';
+import closedChest from '../img/closedChest.png';
 
 const PlayContainer = styled.div`
     height: calc(90vh - 72px);
@@ -117,28 +119,32 @@ const PlayContainer = styled.div`
 `;
 
 const Play = props => {
-    const room = [
-        [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3],
-        [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 4],
-        [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [8, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 4],
-        [12, 0, 0, 15, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10],
-        [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 4],
-        [8, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [8, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 4],
-        [8, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 11, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5]
-    ];
-
-    const [currentRoom, setCurrentRoom] = useState(room);
+    const [currentRoom, setCurrentRoom] = useState([]);
     const [chat, setChat] = useState(['CONNECTING...']);
     const [map, setMap] = useState(false);
+    const [terrain, setTerrain] = useState(1);
+    const [character, setCharacter] = useState(0);
+
+    useEffect(() => {
+        axiosWithAuth().get('/adv/init')
+            .then(response => {
+                console.log(response.data);
+                setCurrentRoom(JSON.parse(response.data.map));
+                setChat([
+                    ...chat,
+                    response.data.title,
+                    response.data.description
+                ]);
+                // setTerrain(response.data.terrain);
+            })
+            .catch(error => console.log(error));
+        axiosWithAuth().get('/adv/getplaychar')
+            .then(response => {
+                console.log(response);
+                setCharacter(response.data.char_id);
+            })
+            .catch(error => console.log(error));
+    }, []);
 
     useEventListener('keydown', event => {
         if (event.code === 'KeyM') {
@@ -160,7 +166,7 @@ const Play = props => {
                     </div>
                 
                     <div className='grid'>
-                        <Character currentRoom={currentRoom} setCurrentRoom={setCurrentRoom} chat={chat} setChat={setChat}/>
+                        <Character currentRoom={currentRoom} setCurrentRoom={setCurrentRoom} chat={chat} setChat={setChat} character={character}/>
                         {currentRoom.map(row => row.map(tile => (
                             <>
                                 {tile === 0 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}></div>}
@@ -192,6 +198,9 @@ const Play = props => {
                                 </div>}
                                 {tile === 15 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}>
                                     <img src={desertObject3} alt='desertObject3' />
+                                </div>}
+                                {tile === 16 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}>
+                                    <img src={closedChest} alt='closedChest' />
                                 </div>}
                             </>
                         )))}
