@@ -103,7 +103,7 @@ const ChooseACharacter = props => {
 
     // make call to api, get character id, if 0 stay, if something else, go to play right away
     useEffect(() => {
-        axiosWithAuth().get('https://loothunters3.herokuapp.com/api/adv/getplaychar')
+        axiosWithAuth().get('/adv/getplaychar')
             .then(response => {
                 // existing user, redirect to play, maybe not so people can change their character
                 // if (response.data.char_id !== 0) {
@@ -115,7 +115,7 @@ const ChooseACharacter = props => {
     }, []);
 
     const submit = () => {
-        axiosWithAuth().put('https://loothunters3.herokuapp.com/api/adv/setplaychar', { char_id: selectedCharacter })
+        axiosWithAuth().put('/adv/setplaychar', { char_id: selectedCharacter })
             .then(response => {
                 props.history.push('play');
             })

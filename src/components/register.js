@@ -115,7 +115,7 @@ const Register = props => {
         } else {
             setButtonText('LOADING...')
             // axios call here, if error, set error to username taken
-            axios.post('https://loothunters3.herokuapp.com/api/registration', {
+            axios.post('https://loothunters3.herokuapp.com/api/registration/', {
                 username: input.username,
                 email: `${input.username}@${input.username}.com`,
                 password1: input.password,

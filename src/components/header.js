@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 import styled from 'styled-components';
 import tune from '../img/tunes/tune2.wav';
 
@@ -72,8 +73,13 @@ const Header = props => {
     };
 
     const logOut = () => {
-        localStorage.removeItem('token');
-        props.history.push('/');
+        axiosWithAuth().post('/logout/')
+            .then(response => {
+                console.log(response);
+                localStorage.removeItem('token');
+                props.history.push('/');
+            })
+            .catch(error => console.log(error));
     };
 
     return (
