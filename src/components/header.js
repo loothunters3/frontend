@@ -85,9 +85,10 @@ const Header = props => {
                         console.log('SECOND LAYER', res);
                         props.setCurrentRoom(JSON.parse(res.data.map));
                         props.setChat([
-                            ...props.chat,
-                            res.data.title,
-                            res.data.description
+                            'RESET WORLD',
+                            'CONNECTING...',
+                            res.data.title.toUpperCase(),
+                            res.data.description.toUpperCase()
                         ]);
                         props.setTerrain(res.data.terrain);
                     })

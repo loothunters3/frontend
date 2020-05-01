@@ -139,12 +139,31 @@ const PlayContainer = styled.div`
                 background-color: #2c2f33;
                 border: 1px solid #d3d4d9;
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 position: absolute;
 
                 h2 {
+                    margin-bottom: 32px;
                     font-size: 1rem;
+                    font-weight: normal;
+                    color: #fff9fb;
+                }
+
+                .count {
+                    margin-bottom: 32px;
+                    font-size: 0.625rem;
+                    font-weight: normal;
+                    color: #fff9fb;
+
+                    b {
+                        color: #4b88a2;
+                    }
+                }
+
+                .error {
+                    font-size: 0.625rem;
                     font-weight: normal;
                     color: #fff9fb;
                 }
@@ -167,16 +186,23 @@ const Play = props => {
                 setCurrentRoom(JSON.parse(response.data.map));
                 setChat([
                     ...chat,
-                    response.data.title,
-                    response.data.description
+                    response.data.title.toUpperCase(),
+                    response.data.description.toUpperCase()
                 ]);
                 setTerrain(response.data.terrain);
             })
             .catch(error => console.log(error));
+
         axiosWithAuth().get('/adv/getplaychar')
             .then(response => {
                 console.log(response);
                 setCharacter(response.data.char_id);
+            })
+            .catch(error => console.log(error));
+
+        axiosWithAuth().get('/adv/getmap')
+            .then(response => {
+                console.log(response);
             })
             .catch(error => console.log(error));
     }, []);
@@ -358,6 +384,8 @@ const Play = props => {
                         {map && (
                             <div className='map'>
                                 <h2>MAP</h2>
+                                <p className='count'><b>52</b> ROOMS GENERATED</p>
+                                <p className='error'>ERROR GENERATING MAP</p>
                             </div>
                         )}
                     </div>
