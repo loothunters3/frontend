@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import useEventListener from '@use-it/event-listener';
+import { v4 as uuidv4 } from 'uuid';
 import Header from './header';
 import Character from './character';
 import styled from 'styled-components';
@@ -119,6 +121,13 @@ const Play = props => {
 
     const [currentRoom, setCurrentRoom] = useState(room);
     const [chat, setChat] = useState(['CONNECTING...']);
+    const [map, setMap] = useState(false);
+
+    useEventListener('keydown', event => {
+        if (event.code === 'KeyM') {
+            setMap(!map);
+        };
+    });
     
     return (
         <>
@@ -135,36 +144,36 @@ const Play = props => {
                 
                     <div className='grid'>
                         <Character currentRoom={currentRoom} setCurrentRoom={setCurrentRoom} chat={chat} setChat={setChat}/>
-                        {currentRoom.map(row => row.map((tile, index) => (
+                        {currentRoom.map(row => row.map(tile => (
                             <>
-                                {tile === 0 && <div key={index} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}></div>}
-                                {tile === 1 && <div key={index} className='tile' style={{ background: `url(${desertTile1})`, backgroundSize: 'contain' }}></div>}
-                                {tile === 2 && <div key={index} className='tile' style={{ background: `url(${desertTile2})`, backgroundSize: 'contain' }}></div>}
-                                {tile === 3 && <div key={index} className='tile' style={{ background: `url(${desertTile3})`, backgroundSize: 'contain' }}></div>}
-                                {tile === 4 && <div key={index} className='tile' style={{ background: `url(${desertTile4})`, backgroundSize: 'contain' }}></div>}
-                                {tile === 5 && <div key={index} className='tile' style={{ background: `url(${desertTile5})`, backgroundSize: 'contain' }}></div>}
-                                {tile === 6 && <div key={index} className='tile' style={{ background: `url(${desertTile6})`, backgroundSize: 'contain' }}></div>}
-                                {tile === 7 && <div key={index} className='tile' style={{ background: `url(${desertTile7})`, backgroundSize: 'contain' }}></div>}
-                                {tile === 8 && <div key={index} className='tile' style={{ background: `url(${desertTile8})`, backgroundSize: 'contain' }}></div>}
-                                {tile === 9 && <div key={index} className='tile' style={{ background: `url(${desertTile2})`, backgroundSize: 'contain' }}>
+                                {tile === 0 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}></div>}
+                                {tile === 1 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile1})`, backgroundSize: 'contain' }}></div>}
+                                {tile === 2 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile2})`, backgroundSize: 'contain' }}></div>}
+                                {tile === 3 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile3})`, backgroundSize: 'contain' }}></div>}
+                                {tile === 4 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile4})`, backgroundSize: 'contain' }}></div>}
+                                {tile === 5 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile5})`, backgroundSize: 'contain' }}></div>}
+                                {tile === 6 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile6})`, backgroundSize: 'contain' }}></div>}
+                                {tile === 7 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile7})`, backgroundSize: 'contain' }}></div>}
+                                {tile === 8 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile8})`, backgroundSize: 'contain' }}></div>}
+                                {tile === 9 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile2})`, backgroundSize: 'contain' }}>
                                     <img src={door1} alt='door1' />
                                 </div>}
-                                {tile === 10 && <div key={index} className='tile' style={{ background: `url(${desertTile4})`, backgroundSize: 'contain' }}>
+                                {tile === 10 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile4})`, backgroundSize: 'contain' }}>
                                     <img src={door2} alt='door2' />
                                 </div>}
-                                {tile === 11 && <div key={index} className='tile' style={{ background: `url(${desertTile6})`, backgroundSize: 'contain' }}>
+                                {tile === 11 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile6})`, backgroundSize: 'contain' }}>
                                     <img src={door3} alt='door3' />
                                 </div>}
-                                {tile === 12 && <div key={index} className='tile' style={{ background: `url(${desertTile8})`, backgroundSize: 'contain' }}>
+                                {tile === 12 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile8})`, backgroundSize: 'contain' }}>
                                     <img src={door4} alt='door4' />
                                 </div>}
-                                {tile === 13 && <div key={index} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}>
+                                {tile === 13 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}>
                                     <img src={desertObject1} alt='desertObject1' />
                                 </div>}
-                                {tile === 14 && <div key={index} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}>
+                                {tile === 14 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}>
                                     <img src={desertObject2} alt='desertObject2' />
                                 </div>}
-                                {tile === 15 && <div key={index} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}>
+                                {tile === 15 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}>
                                     <img src={desertObject3} alt='desertObject3' />
                                 </div>}
                             </>
