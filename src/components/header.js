@@ -56,11 +56,20 @@ const HeaderContainer = styled.div`
     }
 `;
 
+const audio = new Audio(tune);
+
 const Header = props => {
     const [settingsDropdown, setSettingsDropdown] = useState(false);
     const [sound, setSound] = useState(false);
 
-    const audio = new Audio(tune);
+    const playAudio = () => {
+        audio.play();
+        audio.volume = 0.25;
+    };
+
+    const pauseAudio = () => {
+        audio.pause();
+    };
 
     const logOut = () => {
         localStorage.removeItem('token');
@@ -75,12 +84,11 @@ const Header = props => {
                     {sound
                     ? <p className='option' onClick={() => {
                         setSound(false);
-                        audio.pause();
+                        pauseAudio();
                     }}><i className='fas fa-volume-up'></i>MUTE TUNE</p>
                     : <p className='option' onClick={() => {
                         setSound(true);
-                        audio.play();
-                        audio.volume = 0.25;
+                        playAudio();
                     }}><i className='fas fa-volume-mute'></i>UNMUTE TUNE</p>}
                     {/* <p className='option'><i className='fas fa-user-friends'></i>ABOUT THE TEAM</p> */}
                     <a href='https://github.com/loothunters3/frontend/issues' target='_blank' rel='noreferrer noopener'><p className='option' onClick={() => setSettingsDropdown(false)}><i className='fas fa-bug'></i>REPORT A BUG</p></a>
