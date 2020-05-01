@@ -179,6 +179,7 @@ const Play = props => {
     const [terrain, setTerrain] = useState(1);
     const [character, setCharacter] = useState(0);
     const [mapContents, setMapContents] = useState([]);
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
         axiosWithAuth().get('/adv/init')
@@ -208,6 +209,18 @@ const Play = props => {
             })
             .catch(error => console.log(error));
     }, []);
+
+    const getCount = () => {
+        let count;
+        mapContents.map(item => {
+            count += item.length;
+        });
+        setCount(count);
+    };
+
+    useEffect(() => {
+        getCount();
+    }, [mapContents]);
 
     useEventListener('keydown', event => {
         if (event.code === 'KeyM') {
@@ -386,7 +399,7 @@ const Play = props => {
                         {map && (
                             <div className='map'>
                                 <h2>MAP</h2>
-                                <p className='count'><b>{mapContents[0] && mapContents[0].length + mapContents[1] && mapContents[1].length + mapContents[2] && mapContents[2].length + mapContents[3] && mapContents[3].length}</b> ROOMS GENERATED</p>
+                                <p className='count'><b>{count}</b> ROOMS GENERATED</p>
                                 <p className='error'>ERROR GENERATING MAP</p>
                             </div>
                         )}
