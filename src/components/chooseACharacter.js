@@ -106,10 +106,10 @@ const ChooseACharacter = props => {
         axiosWithAuth().get('/adv/getplaychar')
             .then(response => {
                 // existing user, redirect to play, maybe not so people can change their character
-                // if (response.data.char_id !== 0) {
-                //     props.history.push('/play');
-                // };
-                setSelectedCharacter(response.data.char_id);
+                if (response.data.char_id !== 0) {
+                    props.history.push('/play');
+                };
+                // setSelectedCharacter(response.data.char_id);
             })
             .catch(error => console.log(error));
     }, []);
