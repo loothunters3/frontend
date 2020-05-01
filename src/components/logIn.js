@@ -37,7 +37,6 @@ const LogInContainer = styled.div`
             font-size: 0.75rem;
             font-weight: normal;
             color: #252627;
-            // text-transform: uppercase;
 
             ::placeholder {
                 color: #d3d4d9;
@@ -86,6 +85,7 @@ const LogIn = props => {
         password: ''
     });
     const [error, setError] = useState('');
+    const [buttonText, setButtonText] = useState('SUBMIT');
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -105,6 +105,7 @@ const LogIn = props => {
         if (input.username === '' || input.password === '') {
             setError('FIELDS CANNOT BE LEFT BLANK');
         } else {
+            setButtonText('LOADING...')
             // axios call here, if error, set error to invalid credentials
             axios.post('https://loothunters3.herokuapp.com/api/login/', {
                 username: input.username,
@@ -112,7 +113,6 @@ const LogIn = props => {
                 password: input.password,
             })
                 .then(response => {
-                    console.log(response);
                     localStorage.setItem('token', response.data.key);
                     props.history.push('/select');
                 })
@@ -135,7 +135,7 @@ const LogIn = props => {
 
                 <p className='error'>{error}</p>
             
-                <button type='submit'>SUBMIT</button>
+                <button type='submit'>{buttonText}</button>
 
                 <p className='register' onClick={() => props.history.push('/register')}>DON'T HAVE AN ACCOUNT? REGISTER HERE.</p>
             </form>

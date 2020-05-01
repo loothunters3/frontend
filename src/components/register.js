@@ -37,7 +37,6 @@ const RegisterContainer = styled.div`
             font-size: 0.75rem;
             font-weight: normal;
             color: #252627;
-            // text-transform: uppercase;
 
             ::placeholder {
                 color: #d3d4d9;
@@ -87,6 +86,7 @@ const Register = props => {
         password: ''
     });
     const [error, setError] = useState('');
+    const [buttonText, setButtonText] = useState('SUBMIT');
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -111,6 +111,7 @@ const Register = props => {
         } else if (input.password.length < 8) {
             setError('PASSWORD MUST BE 8 CHARACTERS OR GREATER');
         } else {
+            setButtonText('LOADING...')
             // axios call here, if error, set error to username taken
             axios.post('https://loothunters3.herokuapp.com/api/registration/', {
                 username: input.username,
@@ -119,7 +120,6 @@ const Register = props => {
                 password2: input.password
             })
                 .then(response => {
-                    console.log(response);
                     localStorage.setItem('token', response.data.key);
                     props.history.push('/select');
                 })
@@ -142,7 +142,7 @@ const Register = props => {
 
                 <p className='error'>{error}</p>
             
-                <button type='submit'>SUBMIT</button>
+                <button type='submit'>{buttonText}</button>
 
                 <p className='log-in' onClick={() => props.history.push('/login')}>ALREADY HAVE AN ACCOUNT? LOG IN HERE.</p>
             </form>
