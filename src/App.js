@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { PrivateRoute } from './utils/privateRoute';
 import Welcome from './components/welcome';
 import Register from './components/register';
 import LogIn from './components/logIn';
@@ -13,9 +14,9 @@ const App = () => {
       <Route exact path='/' component={Welcome} />
       <Route path='/register' component={Register} />
       <Route path='/login' component={LogIn} />
-      <Route path='/select' component={ChooseACharacter} />
-      <Route path='/tutorial' component={Tutorial} />
-      <Route path='/play' component={Play} />
+      <PrivateRoute path='/select' component={ChooseACharacter} />
+      <PrivateRoute path='/tutorial' component={Tutorial} />
+      <PrivateRoute path='/play' component={Play} />
     </>
   );
 };
