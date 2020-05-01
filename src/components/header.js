@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import tune from '../img/tunes/tune2.wav';
 
 const HeaderContainer = styled.div`
     height: 72px;
@@ -59,6 +60,8 @@ const Header = props => {
     const [settingsDropdown, setSettingsDropdown] = useState(false);
     const [sound, setSound] = useState(false);
 
+    const audio = new Audio(tune);
+
     const logOut = () => {
         localStorage.removeItem('token');
         props.history.push('/');
@@ -70,8 +73,15 @@ const Header = props => {
             {settingsDropdown && (
                 <div className='settings-dropdown'>
                     {sound
-                    ? <p className='option' onClick={() => setSound(false)}><i className='fas fa-volume-up'></i>MUTE SOUND</p>
-                    : <p className='option' onClick={() => setSound(true)}><i className='fas fa-volume-mute'></i>UNMUTE SOUND</p>}
+                    ? <p className='option' onClick={() => {
+                        setSound(false);
+                        audio.pause();
+                    }}><i className='fas fa-volume-up'></i>MUTE TUNE</p>
+                    : <p className='option' onClick={() => {
+                        setSound(true);
+                        audio.play();
+                        audio.volume = 0.25;
+                    }}><i className='fas fa-volume-mute'></i>UNMUTE TUNE</p>}
                     {/* <p className='option'><i className='fas fa-user-friends'></i>ABOUT THE TEAM</p> */}
                     <a href='https://github.com/loothunters3/frontend/issues' target='_blank' rel='noreferrer noopener'><p className='option' onClick={() => setSettingsDropdown(false)}><i className='fas fa-bug'></i>REPORT A BUG</p></a>
                     <p className='option' onClick={logOut}><i className='fas fa-sign-out-alt'></i>LOG OUT</p>
