@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import miguel from '../img/miguel.png';
 import dylan from '../img/dylan.png';
 import maggie from '../img/maggie.png';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 const ChooseACharacterContainer = styled.div`
     height: 90vh;
@@ -98,6 +102,25 @@ const ChooseACharacter = props => {
     const [selectedCharacter, setSelectedCharacter] = useState(1);
 
     // make call to api, get character id, if 0 stay, if something else, go to play right away
+    useEffect(() => {
+        axiosWithAuth().get('https://loothunters3.herokuapp.com/api/adv/getplaychar')
+            .then(response => {
+                // existing user, redirect to play, maybe not so people can change their character
+                // if (response.data.char_id !== 0) {
+                //     props.history.push('/play');
+                // };
+                setSelectedCharacter(response.data.char_id);
+            })
+            .catch(error => console.log(error));
+    }, []);
+
+    const submit = () => {
+        axiosWithAuth().put('https://loothunters3.herokuapp.com/api/adv/setplaychar', { char_id: selectedCharacter })
+            .then(response => {
+                props.history.push('play');
+            })
+            .catch(error => console.log(error));
+    };
     
     return (
         <ChooseACharacterContainer selectedCharacter={selectedCharacter}>
@@ -118,7 +141,8 @@ const ChooseACharacter = props => {
                 </div>
             </div>
 
-            <button onClick={() => props.history.push('/tutorial')}>CONTINUE</button>
+            {/* <button onClick={() => props.history.push('/tutorial')}>CONTINUE</button> */}
+            <button onClick={submit}>CONTINUE</button>
         </ChooseACharacterContainer>
     );
 };
