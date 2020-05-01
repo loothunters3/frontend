@@ -95,6 +95,23 @@ const PlayContainer = styled.div`
                     width: 32px;
                 }
             }
+
+            .map {
+                height: 512px;
+                width: 768px;
+                background-color: #2c2f33;
+                border: 1px solid #d3d4d9;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+
+                h2 {
+                    font-size: 1rem;
+                    font-weight: normal;
+                    color: #fff9fb;
+                }
+            }
         }
     }
 `;
@@ -178,6 +195,12 @@ const Play = props => {
                                 </div>}
                             </>
                         )))}
+
+                        {map && (
+                            <div className='map'>
+                                <h2>MAP</h2>
+                            </div>
+                        )}
                     </div>
                 </div>
             </PlayContainer>
