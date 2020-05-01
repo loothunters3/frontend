@@ -386,7 +386,7 @@ const Play = props => {
                         {map && (
                             <div className='map'>
                                 <h2>MAP</h2>
-                                <p className='count'><b>{mapContents[0].length + mapContents[1].length + mapContents[2].length + mapContents[3].length}</b> ROOMS GENERATED</p>
+                                <p className='count'><b>{mapContents[0] && mapContents[0].length + mapContents[1] && mapContents[1].length + mapContents[2] && mapContents[2].length + mapContents[3] && mapContents[3].length}</b> ROOMS GENERATED</p>
                                 <p className='error'>ERROR GENERATING MAP</p>
                             </div>
                         )}
