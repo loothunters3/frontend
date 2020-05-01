@@ -44,7 +44,10 @@ const Character = props => {
                 // check if backend added anymore tile values
 
                 if (currentStep === 11 && nextStepDown === undefined) {
-                    console.log('Go to the room down');
+                    props.setChat([
+                        ...props.chat,
+                        'GO TO THE ROOM DOWN'
+                    ]);
                 } else if (nextStepDown < 13 && nextStepDown !== undefined) {
                     setPosition({
                         ...position,
@@ -70,7 +73,10 @@ const Character = props => {
             
                 setMovement({ current: 32, previous: movement.current });
                 if (currentStep === 12 && nextStepToTheLeft === undefined) {
-                    console.log('Go to the room to the left');
+                    props.setChat([
+                        ...props.chat,
+                        'GO TO THE ROOM TO THE LEFT'
+                    ]);
                 } else if (nextStepToTheLeft < 13 && nextStepToTheLeft !== undefined) {
                     setPosition({
                         ...position,
@@ -85,7 +91,10 @@ const Character = props => {
 
                 setMovement({ current: 64, previous: movement.current });
                 if (currentStep === 10 && nextStepToTheRight === undefined) {
-                    console.log('Go to the room to the right');
+                    props.setChat([
+                        ...props.chat,
+                        'GO TO THE ROOM TO THE RIGHT'
+                    ]);
                 } else if (nextStepToTheRight < 13 && nextStepToTheRight !== undefined) {
                     setPosition({
                         ...position,
@@ -100,7 +109,10 @@ const Character = props => {
 
                 setMovement({ current: 96, previous: movement.current });
                 if (currentStep === 9 && nextStepUp === undefined) {
-                    console.log('Go to the room up');
+                    props.setChat([
+                        ...props.chat,
+                        'GO TO THE ROOM UP'
+                    ]);
                 } else if (nextStepUp < 13 && nextStepUp !== undefined) {
                     setPosition({
                         ...position,
