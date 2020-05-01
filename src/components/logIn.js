@@ -119,6 +119,7 @@ const LogIn = props => {
                 .catch(error => {
                     console.log(error);
                     setError('INVALID CREDENTIALS');
+                    setButtonText('SUBMIT')
                 });        
         };
     };

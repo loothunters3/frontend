@@ -126,6 +126,7 @@ const Register = props => {
                 .catch(error => {
                     console.log(error.response);
                     setError('USERNAME TAKEN');
+                    setButtonText('SUBMIT')
                 });
         };
     };
