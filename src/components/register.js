@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -87,6 +87,12 @@ const Register = props => {
         password: ''
     });
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            props.history.push('/select');
+        };
+    }, []);
 
     const onChange = event => {
         setInput({

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -86,6 +86,12 @@ const LogIn = props => {
         password: ''
     });
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            props.history.push('/select');
+        };
+    }, []);
 
     const onChange = event => {
         setInput({

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const WelcomeContainer = styled.div`
@@ -49,6 +49,12 @@ const WelcomeContainer = styled.div`
 `;
 
 const Welcome = props => {
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            props.history.push('/select');
+        };
+    }, []);
+
     return (
         <WelcomeContainer>
             <h1>LOOT HUNTERS<b>3</b></h1>

@@ -96,6 +96,8 @@ const ChooseACharacterContainer = styled.div`
 
 const ChooseACharacter = props => {
     const [selectedCharacter, setSelectedCharacter] = useState(1);
+
+    // make call to api, get character id, if 0 stay, if something else, go to play right away
     
     return (
         <ChooseACharacterContainer selectedCharacter={selectedCharacter}>
