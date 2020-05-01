@@ -166,7 +166,7 @@ const Play = props => {
                     </div>
                 
                     <div className='grid'>
-                        <Character currentRoom={currentRoom} setCurrentRoom={setCurrentRoom} chat={chat} setChat={setChat} character={character}/>
+                        <Character currentRoom={currentRoom} setCurrentRoom={setCurrentRoom} chat={chat} setChat={setChat} character={character} />
                         {currentRoom.map(row => row.map(tile => (
                             <>
                                 {tile === 0 && <div key={uuidv4()} className='tile' style={{ background: `url(${desertTile0})`, backgroundSize: 'contain' }}></div>}

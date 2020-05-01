@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 import useEventListener from '@use-it/event-listener';
 import styled from 'styled-components';
 import zelda from '../img/zelda.png';
@@ -50,27 +51,27 @@ const Character = props => {
                 // check if backend added anymore tile values
 
                 if (currentStep === 11 && nextStepDown === undefined) {
-                    props.setChat([
-                        ...props.chat,
-                        'GO TO THE ROOM DOWN'
-                    ]);
+                    axiosWithAuth().post('/adv/move', { direction: 's' })
+                        .then(response => {
+                            console.log(response);
+                            setPosition({
+                                ...position,
+                                top: 0
+                            });
+                            props.setChat([
+                                ...props.chat,
+                                response.data.title,
+                                response.data.description
+                            ]);
+                            props.setCurrentRoom(JSON.parse(response.data.map));
+                        })
+                        .catch(error => console.log(error));
                 } else if (nextStepDown < 13 && nextStepDown !== undefined) {
                     setPosition({
                         ...position,
                         top: position.top >= 480 ? position.top : position.top + 32
                     });
                 };
-                
-                // change rooms
-
-                // if (props.currentRoom[(position.top / 32) + 1][position.left / 32] === 11) {
-                //     setPosition({
-                //         ...position,
-                //         top: 0
-                //     });
-                //     props.setCurrentRoom(props.room2);
-                // };
-
                 break;
                 
             case 'KeyA':
@@ -79,10 +80,21 @@ const Character = props => {
             
                 setMovement({ current: 32, previous: movement.current });
                 if (currentStep === 12 && nextStepToTheLeft === undefined) {
-                    props.setChat([
-                        ...props.chat,
-                        'GO TO THE ROOM TO THE LEFT'
-                    ]);
+                    axiosWithAuth().post('/adv/move', { direction: 'w' })
+                        .then(response => {
+                            console.log(response);
+                            setPosition({
+                                ...position,
+                                left: 736
+                            });
+                            props.setChat([
+                                ...props.chat,
+                                response.data.title,
+                                response.data.description
+                            ]);
+                            props.setCurrentRoom(JSON.parse(response.data.map));
+                        })
+                        .catch(error => console.log(error));
                 } else if (nextStepToTheLeft < 13 && nextStepToTheLeft !== undefined) {
                     setPosition({
                         ...position,
@@ -97,10 +109,21 @@ const Character = props => {
 
                 setMovement({ current: 64, previous: movement.current });
                 if (currentStep === 10 && nextStepToTheRight === undefined) {
-                    props.setChat([
-                        ...props.chat,
-                        'GO TO THE ROOM TO THE RIGHT'
-                    ]);
+                    axiosWithAuth().post('/adv/move', { direction: 'e' })
+                        .then(response => {
+                            console.log(response);
+                            setPosition({
+                                ...position,
+                                left: 0
+                            });
+                            props.setChat([
+                                ...props.chat,
+                                response.data.title,
+                                response.data.description
+                            ]);
+                            props.setCurrentRoom(JSON.parse(response.data.map));
+                        })
+                        .catch(error => console.log(error));
                 } else if (nextStepToTheRight < 13 && nextStepToTheRight !== undefined) {
                     setPosition({
                         ...position,
@@ -115,25 +138,27 @@ const Character = props => {
 
                 setMovement({ current: 96, previous: movement.current });
                 if (currentStep === 9 && nextStepUp === undefined) {
-                    props.setChat([
-                        ...props.chat,
-                        'GO TO THE ROOM UP'
-                    ]);
+                    axiosWithAuth().post('/adv/move', { direction: 'n' })
+                        .then(response => {
+                            console.log(response);
+                            setPosition({
+                                ...position,
+                                top: 480
+                            });
+                            props.setChat([
+                                ...props.chat,
+                                response.data.title,
+                                response.data.description
+                            ]);
+                            props.setCurrentRoom(JSON.parse(response.data.map));
+                        })
+                        .catch(error => console.log(error));
                 } else if (nextStepUp < 13 && nextStepUp !== undefined) {
                     setPosition({
                         ...position,
                         top: position.top <= 0 ? position.top : position.top - 32
                     });
                 };
-
-                // change rooms
-
-                // if (props.currentRoom[(position.top / 32) - 1][position.left / 32] === 0) {
-                //     setPosition({
-                //         ...position,
-                //         top: position.top <= 0 ? position.top : position.top - 32
-                //     });
-                // };
                 break;
             
             default:
