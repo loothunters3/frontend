@@ -167,8 +167,8 @@ const Play = props => {
                 setCurrentRoom(JSON.parse(response.data.map));
                 setChat([
                     ...chat,
-                    response.data.title.toUpperCase(),
-                    response.data.description.toUpperCase()
+                    response.data.title,
+                    response.data.description
                 ]);
                 setTerrain(response.data.terrain);
             })
@@ -189,7 +189,7 @@ const Play = props => {
     
     return (
         <>
-            <Header history={props.history} />
+            <Header history={props.history} setCurrentRoom={setCurrentRoom} chat={chat} setChat={setChat} setTerrain={setTerrain} />
             <PlayContainer>
                 <h1>LOOT HUNTERS <b>3</b></h1>
                 <div className='chat-and-grid-container'>

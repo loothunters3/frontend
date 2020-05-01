@@ -72,6 +72,30 @@ const Header = props => {
         audio.pause();
     };
 
+    const resetWorld = () => {
+        axiosWithAuth().post('/adv/resetworld')
+            .then(response => {
+                console.log('FIRST LAYER', response);
+                props.setChat([
+                    'RESET WORLD',
+                    'CONNECTING...'
+                ]);
+                axiosWithAuth().get('/adv/init')
+                    .then(res => {
+                        console.log('SECOND LAYER', res);
+                        props.setCurrentRoom(JSON.parse(res.data.map));
+                        props.setChat([
+                            ...props.chat,
+                            res.data.title,
+                            res.data.description
+                        ]);
+                        props.setTerrain(res.data.terrain);
+                    })
+                    .catch(error => console.log(error))
+            })
+            .catch(error => console.log(error));
+    };
+
     const logOut = () => {
         axiosWithAuth().post('/logout/')
             .then(response => {
@@ -97,6 +121,7 @@ const Header = props => {
                         playAudio();
                     }}><i className='fas fa-volume-mute'></i>UNMUTE TUNE</p>}
                     {/* <p className='option'><i className='fas fa-user-friends'></i>ABOUT THE TEAM</p> */}
+                    <p className='option' onClick={resetWorld}><i className='fas fa-globe-americas'></i>RESET WORLD</p>
                     <a href='https://github.com/loothunters3/frontend/issues' target='_blank' rel='noreferrer noopener'><p className='option' onClick={() => setSettingsDropdown(false)}><i className='fas fa-bug'></i>REPORT A BUG</p></a>
                     <p className='option' onClick={logOut}><i className='fas fa-sign-out-alt'></i>LOG OUT</p>
                 </div>
