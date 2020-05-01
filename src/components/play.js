@@ -178,6 +178,7 @@ const Play = props => {
     const [map, setMap] = useState(false);
     const [terrain, setTerrain] = useState(1);
     const [character, setCharacter] = useState(0);
+    const [mapContents, setMapContents] = useState([]);
 
     useEffect(() => {
         axiosWithAuth().get('/adv/init')
@@ -202,7 +203,8 @@ const Play = props => {
 
         axiosWithAuth().get('/adv/getmap')
             .then(response => {
-                console.log(response);
+                console.log('GET_MAP',response.data);
+                setMapContents(response.data.map);
             })
             .catch(error => console.log(error));
     }, []);
@@ -227,7 +229,7 @@ const Play = props => {
                     </div>
                 
                     <div className='grid'>
-                        <Character currentRoom={currentRoom} setCurrentRoom={setCurrentRoom} chat={chat} setChat={setChat} character={character} setTerrain={setTerrain} />
+                        <Character currentRoom={currentRoom} setCurrentRoom={setCurrentRoom} chat={chat} setChat={setChat} character={character} setTerrain={setTerrain} setMapContents={setMapContents} />
                         {currentRoom.map(row => row.map(tile => (
                             <>
                                 {terrain === 1 && (
@@ -384,7 +386,7 @@ const Play = props => {
                         {map && (
                             <div className='map'>
                                 <h2>MAP</h2>
-                                <p className='count'><b>52</b> ROOMS GENERATED</p>
+                                <p className='count'><b>{mapContents[0].length + mapContents[1].length + mapContents[2].length + mapContents[3].length}</b> ROOMS GENERATED</p>
                                 <p className='error'>ERROR GENERATING MAP</p>
                             </div>
                         )}

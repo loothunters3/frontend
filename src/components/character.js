@@ -65,6 +65,12 @@ const Character = props => {
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
                             props.setTerrain(response.data.terrain);
+                            axiosWithAuth().get('/adv/getmap')
+                                .then(res => {
+                                    console.log('GET_MAP_AFTER_MOVING',res.data);
+                                    props.setMapContents(res.data.map);
+                                })
+                                .catch(error => console.log(error));
                         })
                         .catch(error => console.log(error));
                 } else if (nextStepDown < 13 && nextStepDown !== undefined) {
@@ -95,6 +101,12 @@ const Character = props => {
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
                             props.setTerrain(response.data.terrain);
+                            axiosWithAuth().get('/adv/getmap')
+                                .then(res => {
+                                    console.log('GET_MAP_AFTER_MOVING',res.data);
+                                    props.setMapContents(res.data.map);
+                                })
+                                .catch(error => console.log(error));
                         })
                         .catch(error => console.log(error));
                 } else if (nextStepToTheLeft < 13 && nextStepToTheLeft !== undefined) {
@@ -125,6 +137,12 @@ const Character = props => {
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
                             props.setTerrain(response.data.terrain);
+                            axiosWithAuth().get('/adv/getmap')
+                                .then(res => {
+                                    console.log('GET_MAP_AFTER_MOVING',res.data);
+                                    props.setMapContents(res.data.map);
+                                })
+                                .catch(error => console.log(error));
                         })
                         .catch(error => console.log(error));
                 } else if (nextStepToTheRight < 13 && nextStepToTheRight !== undefined) {
@@ -155,6 +173,12 @@ const Character = props => {
                             ]);
                             props.setCurrentRoom(JSON.parse(response.data.map));
                             props.setTerrain(response.data.terrain);
+                            axiosWithAuth().get('/adv/getmap')
+                                .then(res => {
+                                    console.log('GET_MAP_AFTER_MOVING',res.data);
+                                    props.setMapContents(res.data.map);
+                                })
+                                .catch(error => console.log(error));
                         })
                         .catch(error => console.log(error));
                 } else if (nextStepUp < 13 && nextStepUp !== undefined) {
