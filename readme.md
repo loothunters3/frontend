@@ -1,6 +1,6 @@
 ### Todo
-- procedurally generated map
-- inventory, stats, and loot in chests
-- monsters and bosses
-- multiplayer, chat, pvp with sockets
-- optimize and clean code
+- Procedurally generated map
+- Inventory, stats, and loot in chests
+- Monsters and bosses
+- Multiplayer, chat, pvp with sockets
+- Optimize and clean code
