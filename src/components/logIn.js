@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
+
 const LogInContainer = styled.div`
     height: 90vh;
     width: 393.3px;
@@ -107,7 +109,7 @@ const LogIn = props => {
         } else {
             setButtonText('LOADING...')
             // axios call here, if error, set error to invalid credentials
-            axios.post('https://loothunters3.herokuapp.com/api/login/', {
+            axios.post('https://loothunters3.herokuapp.com/api/login', {
                 username: input.username,
                 email: `${input.username}@${input.username}.com`,
                 password: input.password,
