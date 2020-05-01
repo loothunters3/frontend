@@ -117,7 +117,7 @@ const ChooseACharacter = props => {
     const submit = () => {
         axiosWithAuth().put('/adv/setplaychar', { char_id: selectedCharacter })
             .then(response => {
-                props.history.push('play');
+                props.history.push('/tutorial');
             })
             .catch(error => console.log(error));
     };
