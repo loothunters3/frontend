@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react';
 import useEventListener from '@use-it/event-listener';
 import styled from 'styled-components';
 import zelda from '../img/zelda.png';
+import miguel from '../img/miguel.png';
+import dylan from '../img/dylan.png';
+import maggie from '../img/maggie.png';
 
 const CharacterContainer = styled.div`
     height: 32px;
     width: 32px;
-    background: url(${zelda});
+    background: ${props => props.character === 0 ? `url(${zelda})` : null};
+    background: ${props => props.character === 1 ? `url(${miguel})` : null};
+    background: ${props => props.character === 2 ? `url(${dylan})` : null};
+    background: ${props => props.character === 3 ? `url(${maggie})` : null};
     background-position: ${props => `-${props.step * 32}px -${props.movement.current}px`};
     position: absolute;
     top: ${props => `${props.position.top}px`};
@@ -144,7 +150,7 @@ const Character = props => {
     }, [movement]);
 
     return (
-        <CharacterContainer position={position} movement={movement} step={step}></CharacterContainer>
+        <CharacterContainer position={position} movement={movement} step={step} character={props.character}></CharacterContainer>
     );
 };
 
